@@ -17,7 +17,7 @@ fi
 ROOM=${1--}
 COLOR=${2-BC1500}
 SERVER=${3-http://greywolf.co.nz/testing/chat/}
-BASEURL=$SERVER/r/$ROOM/
+BASEURL=$SERVER/$ROOM/
 
 (
 	SINCE=0
