@@ -9,14 +9,14 @@ trap "kill 0" EXIT
 ### The Regex Zone.
 
 if [ "$1" = "-h" ]; then
-	echo "Usage: chat.sh [room] [color] [server-base, defaults to greywolf]"
+	echo "Usage: chat.sh [room] [color] [server-base, defaults to chattr]"
 	echo "Hangs up when end of file is reached. "
 	exit
 fi
  
 ROOM=${1--}
 COLOR=${2-BC1500}
-SERVER=${3-http://greywolf.co.nz/testing/chat/}
+SERVER=${3-http://chattr.nz}
 BASEURL=$SERVER/$ROOM/
 
 (
@@ -27,6 +27,7 @@ BASEURL=$SERVER/$ROOM/
 			if test ! -z $NEWSINCE; then
 				SINCE=$NEWSINCE
 			fi
+			# date +%R 
 			echo $message | sed -e 's|^.*"msg": "\(.*[^\\]\)".*"colour": "#\([0-9A-Fa-f]*\)".*$|\2: \1|'
 		done < <(curl -s $BASEURL/room?since=$SINCE | grep -o '.{[^}]\+}')
 	done
