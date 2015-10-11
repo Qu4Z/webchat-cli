@@ -28,7 +28,7 @@ BASEURL=$SERVER/$ROOM/
 				SINCE=$NEWSINCE
 			fi
 			# date +%R 
-			echo $message | sed -e 's|^.*"msg": "\(.*[^\\]\)".*"colour": "#\([0-9A-Fa-f]*\)".*$|\2: \1|'
+			echo $message | sed -e 's|^.*"msg": "\(.*\)", "colour": "#\([0-9A-Fa-f]*\)", "id": [0-9]*}$|\2: \1|' | sed -e 's|\\\([\"]\)|\1|g'
 		done < <(curl -s $BASEURL/room?since=$SINCE | grep -o '.{[^}]\+}')
 	done
 ) &
